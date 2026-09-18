@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-production
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/iam-hariii/novapay-gitops.git
+    targetRevision: main
+    path: apps/nginx-production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
